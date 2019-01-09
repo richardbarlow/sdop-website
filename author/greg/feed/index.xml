@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Greg &#8211; Six Degrees of Procrastination</title>
+	<atom:link href="/author/greg/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description></description>
+	<lastBuildDate>Thu, 05 Dec 2013 20:27:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.0.2</generator>
+	<item>
+		<title>Day 4 &#8211; Still in Germany</title>
+		<link>/day-4-still-in-germany/</link>
+		<comments>/day-4-still-in-germany/#comments</comments>
+		<pubDate>Tue, 10 Jul 2012 14:37:34 +0000</pubDate>
+		<dc:creator><![CDATA[Greg]]></dc:creator>
+				<category><![CDATA[Progress update]]></category>
+
+		<guid isPermaLink="false">/?p=575</guid>
+		<description><![CDATA[After an early morning wake up, we drove the vibrating ambulance to the Opel garage in order to get it fixed. After a long difficult conversation, a test drive done by a mechanic and lots of phrases including &#8220;kaputt&#8221; (our &#8230; <a href="/day-4-still-in-germany/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>After an early morning wake up, we drove the vibrating ambulance to the Opel garage in order to get it fixed. After a long difficult conversation, a test drive done by a mechanic and lots of phrases including &#8220;kaputt&#8221; (our new favourite German word), it was discovered that the front left drive shaft is broken.</p>
+<p>The plan is to get the drive shaft delivered tomorrow morning and fitted in the ambulance and if Lady Luck is on our side, we should be in Prague by tomorrow evening. However due to the ambulance being made in England and the drive shaft made in Germany, there is a small chance that it might not fit. If that is the case then we have a few other plans to put in place. We doubt that a German mechanic could be persuaded to &#8220;bodge&#8221; in a drive shaft if it didn&#8217;t fit perfectly.</p>
+<p>We had no choice but to spend the rest of the day in Kassel sight-seeing in the glorious sunshine and first hot weather of the trip.</p>
+]]></content:encoded>
+			<wfw:commentRss>/day-4-still-in-germany/feed/</wfw:commentRss>
+		<slash:comments>3</slash:comments>
+		</item>
+		<item>
+		<title>SDOP on the airwaves</title>
+		<link>/sdop-on-the-airwaves/</link>
+		<pubDate>Mon, 14 May 2012 18:59:32 +0000</pubDate>
+		<dc:creator><![CDATA[Greg]]></dc:creator>
+				<category><![CDATA[Progress update]]></category>
+
+		<guid isPermaLink="false">/?p=355</guid>
+		<description><![CDATA[Sorry for being late with the blog update. Everybody is in the middle of exams, final projects or important modules, so we are all being stressed with work. A few fun things have happened over the past few weeks. We &#8230; <a href="/sdop-on-the-airwaves/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>Sorry for being late with the blog update. Everybody is in the middle of exams, final projects or important modules, so we are all being stressed with work. A few fun things have happened over the past few weeks. We have secured an interview with BBC Radio Solent on the 6<sup>th</sup> of July, where Greg and Alex will spread the Procrastination word over the airwaves. More details of when it will exactly be played coming soon.</p>
+<p>We have purchased 7 fold-out chairs for the trip which have all been fully customised. We have bought an awesome video camera so we can more accurately document our antics on the trip. We acquired am EEEPC, which is a netbook that is good for blasting out the tunes on route and also keeping the blog updated when there are no internet cafes nearby. Lastly we now have super comfy hammocks for chilling in the Asian sun.</p>
+<p><a title="P1060076 by Six Degrees of Procrastination, on Flickr" href="http://www.flickr.com/photos/sdop/6959754026/"><img class="aligncenter" src="http://farm9.staticflickr.com/8153/6959754026_934f87c3c1.jpg" alt="P1060076" width="500" height="375" /></a></p>
+]]></content:encoded>
+			</item>
+	</channel>
+</rss>

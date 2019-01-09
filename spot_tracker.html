@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Six Degrees of Procrastination - Real-time Tracker</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="cache-control" content="max-age=0" />
+  	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+	<meta http-equiv="pragma" content="no-cache" />
+	<style type="text/css">
+		html, body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+		}
+		#map_canvas {
+			height:100%;
+		}
+		#mapKey {
+			background-color: rgba(20,20,20,0.8);
+			margin: 0 0 20px 0;
+			padding: 5px;
+			font-family: arial, sans-serif;
+			font-weight: bold;
+			color: #fff;
+			font-size: 14px;
+			border-radius: 5px;
+		}
+		#mapKey li {
+			list-style: none;
+			margin: 0;
+			padding: 3px 0;
+		}
+		#mapKey p {
+			display: inline;
+			padding-left: 10px;
+			
+		}
+		#mapKey img {
+			vertical-align: middle;
+		}
+	</style>
+	<script type="text/javascript"
+	        src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript"
+	        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNIp4rIppaqX8pUo1qWPDeH8PxDurHrb8"></script>
+
+	<script type="text/javascript">
+		/* How often to refresh the data, in seconds */
+		var refreshTime = 120;
+		var map;
+		var plannedRoute;
+		var markers;
+		var okMarkers = [];
+		var maploaded = false;
+		var updateStr;
+		var loop_var = true;
+		var luTitle;
+		var sdopTitle;
+		var key;
+
+
+		function initialize() {
+			run();
+		}
+
+		function pad(num) {
+    			return ("0" + num).slice(-2);
+		}		
+
+		function formatDate(d) {
+    			return [d.getUTCFullYear(), 
+            		pad(d.getUTCMonth() + 1), 
+            		pad(d.getUTCDate())].join("-") + "T" + 
+           		[pad(d.getUTCHours()), 
+            		pad(d.getUTCMinutes()), 
+            		pad(d.getUTCSeconds())].join(":");
+		}
+
+		function getTimeDiff(lastTimeStr) {
+			// Get Current UTC String
+			currentTimeStr = formatDate(new Date());
+			var retStr = '';
+
+			//Split UTC String so lastUpdate [0] = Date , lastUpdate [1] = time
+			var lastUpdate = (lastTimeStr).split('+')[0];
+			lastUpdate = lastUpdate.split('T');
+			var tempDate = lastUpdate[0].split('-');
+			lastUpdate[0] = tempDate[2]+'/'+tempDate[1]+'/'+tempDate[0];
+
+			//Split UTC String so currentUpdate [0] = Date , currentUpdate [1] = time
+			var currentUpdate = (currentTimeStr).split('+')[0];
+			currentUpdate = currentUpdate.split('T');
+			tempDate = currentUpdate[0].split('-');
+			currentUpdate[0] = tempDate[2]+'/'+tempDate[1]+'/'+tempDate[0];
+
+
+			// If a diffrent day show full date since last update
+			if(lastUpdate[0] != currentUpdate[0])
+			{
+				retStr = ' Last Update: ' + lastUpdate[1] + ' ' + lastUpdate[0] +' ';
+				return retStr
+			}
+			else {
+			// If same day convert time to minute
+			var currentTime = currentUpdate[1].split(':');
+			currentTime = [parseInt(currentTime[0]),parseInt(currentTime[1]),parseInt(currentTime[2])];
+			currentTime = (currentTime[0] *60) + currentTime[1];
+			var lastTime = lastUpdate[1].split(':');
+			lastTime = [parseInt(lastTime[0]),parseInt(lastTime[1]),parseInt(lastTime[2])];
+			lastTime = (lastTime[0] *60) + lastTime[1];
+			
+			// calculate diffrence in minutes
+			timeDiff = currentTime - lastTime;
+			if (timeDiff > 60)
+				{
+				// if minutes are greater than 60 show in hours and minutes
+				var hours= Math.floor(timeDiff/60);
+				var mins = timeDiff % 60;
+				retStr = ' Last Update: ' + hours.toString() + ' hour ' + mins.toString() + ' mins ago';
+				return retStr
+				}
+			// else show in minutes
+			retStr = ' Last Update: ' + timeDiff.toString()+ ' minutes ago';
+			return retStr
+			}	
+		}
+
+		function run() {
+                        maploaded = false;
+			var myOptions = {
+				zoom: 7,
+				center: new google.maps.LatLng(50.92338,-1.39227),
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+
+			map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+
+			/* Show planned route */
+			var kmlOptions = {
+				map: map,
+				preserveViewport: true
+			};
+			//plannedRoute = new google.maps.KmlLayer("/planned_route.kml", kmlOptions);
+			plannedRoute = new google.maps.KmlLayer("https://maps.google.com/maps/ms?vpsrc=6&ctz=0&ie=UTF8&t=h&source=embed&authuser=0&msa=0&output=kml&msid=206241334734577008407.0004b282953633e06577d&" + new Date().getTime(), kmlOptions);
+
+			sdopTitle = document.createElement('img');
+			sdopTitle.src = "/wp-content/uploads/2012/07/map_logo.png";
+			sdopTitle.alt = "Six Degrees of Procrastination";
+
+			luTitle = document.createElement('h5');
+			luTitle.style.color = '#fff';
+			luTitle.style.background = 'rgba(20, 20, 20, 0.8)';
+			luTitle.style.font = 'bold 14px arial,serif';
+			luTitle.style.padding = '5px';
+			luTitle.style.borderRadius = '5px';
+			luTitle.style.textAlign = 'center';
+			luTitle.innerHTML = "Loading...";
+
+			var luTextDiv = document.createElement('div');
+			if (window.location.search.indexOf("blog") == -1) {
+				luTextDiv.style.marginTop = '5px';
+				luTitle.style.margin = '0';
+				luTextDiv.appendChild(sdopTitle);
+			}
+			luTextDiv.appendChild(luTitle);
+			map.controls[google.maps.ControlPosition.TOP_LEFT].push(luTextDiv);
+
+			key = document.createElement('ul');
+			key.id = "mapKey";
+			var keyUs = document.createElement('li');
+			var keyDay = document.createElement('li');
+			var keyRoute = document.createElement('li');
+			var keyPlanned = document.createElement('li');
+
+			var keyUsImg = document.createElement('img');
+			keyUsImg.src = "/wp-content/uploads/2012/07/ambulance.png";
+			keyUsImg.alt = "Last Position";
+			var keyUsP = document.createElement('p');
+			keyUsP.innerHTML = "Last Position";
+			keyUs.appendChild(keyUsImg);
+			keyUs.appendChild(keyUsP);
+
+			var keyDayImg = document.createElement('img');
+			keyDayImg.src = "/wp-content/uploads/2012/07/orange_pin_wide.png";
+			keyDayImg.alt = "End of Day Position";
+			var keyDayP = document.createElement('p');
+			keyDayP.innerHTML = "End of Day Position";
+			keyDay.appendChild(keyDayImg);
+			keyDay.appendChild(keyDayP);
+
+			var keyRouteImg = document.createElement('img');
+			keyRouteImg.src = "/wp-content/uploads/2012/07/orange_line.png";
+			keyRouteImg.alt = "Where We've Been";
+			var keyRouteP = document.createElement('p');
+			keyRouteP.innerHTML = "Where We've Been";
+			keyRoute.appendChild(keyRouteImg);
+			keyRoute.appendChild(keyRouteP);
+
+			var keyPlannedImg = document.createElement('img');
+			keyPlannedImg.src = "/wp-content/uploads/2012/07/blue_line1.png";
+			keyPlannedImg.alt = "Planned Route";
+			var keyPlannedP = document.createElement('p');
+			keyPlannedP.innerHTML = "Planned Route";
+			keyPlanned.appendChild(keyPlannedImg);
+			keyPlanned.appendChild(keyPlannedP);
+
+			key.appendChild(keyUs);
+			key.appendChild(keyDay);
+			key.appendChild(keyRoute);
+			key.appendChild(keyPlanned);
+
+			map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(key);
+
+			maploaded = true;
+
+			getMarkers();
+			//window.setInterval(getMarkers, refreshTime * 1000);
+		}
+
+		function getMarkers() {
+			$.getJSON('/spot_markers.js?' + new Date().getTime(),
+			function(data) {
+				markers = data.Markers;
+				applyMarkers();
+			});
+		}
+
+		function applyMarkers() {
+
+			/* Clear previous stuff */
+			if (typeof pathOutline != "undefined") {
+				pathOutline.setMap(null);
+			}
+			for (var i = 0; i < okMarkers.length; i++) {
+				okMarkers[i].setMap(null);
+			}
+			okMarkers = [];
+			if (typeof m != "undefined") {
+				m.setMap(null);
+			}
+			
+    			var pinOK = new google.maps.MarkerImage("/wp-content/uploads/2012/07/orange_pin.png",
+        		new google.maps.Size(21, 34),
+        		new google.maps.Point(0,0),
+       			new google.maps.Point(10, 34));
+			var pinAmbulance = new google.maps.MarkerImage("/wp-content/uploads/2012/07/ambulance.png",
+			new google.maps.Size(50, 38),
+			new google.maps.Point(0,0),
+			new google.maps.Point(0,38));
+
+			var path = [];
+			var LastTrackMarked = "FALSE";
+
+			for (var i=0; i < markers.length; i++) {
+				var lat = parseFloat(markers[i].lat);
+				var lng = parseFloat(markers[i].lng);
+				var type = markers[i].type;
+
+				if (i == 0){
+                                        luTitle.innerHTML = getTimeDiff(markers[0].ts);
+                                }  
+
+				if(type == "TRACK"){
+					if (LastTrackMarked == "FALSE") {
+						m = new google.maps.Marker({
+							position: new google.maps.LatLng(lat, lng), 
+							map: map, 
+							title:"#"+i,
+							icon: pinAmbulance
+						}); 
+						LastTrackMarked = "TRUE"
+
+						var center = new google.maps.LatLng(lat, lng);
+						map.setCenter(center)
+					}
+				
+					path[path.length] = new google.maps.LatLng(lat, lng);
+				}
+				if(type == "OK"){
+					var om = new google.maps.Marker({
+							position: new google.maps.LatLng(lat, lng), 
+							map: map,
+							icon: pinOK,
+							title:"#"+i
+						});
+ 						okMarkers.push(om);
+
+				}
+				
+			}
+
+			pathOutline = new google.maps.Polyline({
+		   		path: path,
+		   		strokeColor:"#fa6b13",
+		   		strokeOpacity:0.7,
+		   		strokeWeight:8,
+		   		map: map
+			});
+		}
+
+	   	google.maps.event.addDomListener(window, 'load', initialize);
+
+	</script>
+</head>
+<body>
+	<div id="map_canvas"></div>
+</body>
+</html>

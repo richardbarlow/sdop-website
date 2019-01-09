@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Berry &#8211; Six Degrees of Procrastination</title>
+	<atom:link href="/author/berry/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description></description>
+	<lastBuildDate>Thu, 05 Dec 2013 20:27:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.0.2</generator>
+	<item>
+		<title>Lots of Things!</title>
+		<link>/lots-of-things/</link>
+		<pubDate>Sun, 15 Apr 2012 18:46:08 +0000</pubDate>
+		<dc:creator><![CDATA[Berry]]></dc:creator>
+				<category><![CDATA[Progress update]]></category>
+
+		<guid isPermaLink="false">/?p=297</guid>
+		<description><![CDATA[Hello intrepid watchers of this space. It has been a busy 3 weeks since our last blog update, let me tell you&#8230; Firstly the ever helpful Joyce from ECS had 1000 very professional A5 leaflets printed for us, to be &#8230; <a href="/lots-of-things/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>Hello intrepid watchers of this space. It has been a busy 3 weeks since our last blog update, let me tell you&#8230;</p>
+<p>Firstly the ever helpful Joyce from ECS had 1000 very professional A5 leaflets printed for us, to be distributed as we see fit.</p>
+<p>Then Matt Lokes put in a sterling effort and made us a team&#8217;s worth of awesome t-shirts, with a promise of more to come.</p>
+<p>All the visa applications got sent off in a big package, and they seem to be doing well, judging from the regular email updates we&#8217;ve been getting.</p>
+<p>Then we got round to taking some team photos with the ambulances, and the weather managed to stay pretty nice, so we&#8217;ll look pretty cool when they get used in the University paper after Easter, and (fingers crossed) in some local papers as well. That is if Rich ever manages to sort through them all&#8230;</p>
+<p>Also a big thank-you for the generous donations from family back in Essex when Greg returned for Easter Break. Especially &#8216;The Dymond&#8217; parents Chris &amp; Sharon, Grandad Dennis &amp; Barbara and Auntie Tracey and Uncle Tony. Every donation is making our journey to Mongolia that much easier.</p>
+<p><a href="/wp-content/uploads/2012/04/memes.jpg"><img class="alignnone size-full wp-image-306" title="Memes" src="/wp-content/uploads/2012/04/memes.jpg" alt="" width="960" height="720" srcset="/wp-content/uploads/2012/04/memes.jpg 960w, /wp-content/uploads/2012/04/memes-300x225.jpg 300w" sizes="(max-width: 960px) 100vw, 960px" /></a></p>
+<p>Pictures of everything should be up in the <a title="Gallery" href="http://www.sdop.co.uk/gallery" target="_blank">Gallery</a> soon, if not already, so head on over!</p>
+]]></content:encoded>
+			</item>
+	</channel>
+</rss>
